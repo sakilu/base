@@ -21,11 +21,7 @@ class codeDeploy
 
 // files to ignore in directory
     private $ignore_files = array(
-        'README.md',
-        '.gitignore',
-        'config.php',
-        'wp-config.php',
-        'deploy.php'
+        'README.md'
     );
 
 /////////////////////////// STOP EDITING BELOW THIS LINE //////////////////////////////	
