@@ -17,6 +17,7 @@
     "knplabs/knp-snappy": "^0.4.3",
     "sly/notification-pusher": "^2.2",
     "monolog/monolog": "^1.18",
-    "wapmorgan/mini-threader": "dev-master"
+    "wapmorgan/mini-threader": "dev-master",
+    "aws/aws-sdk-php": "^3.17"
   }
 }
