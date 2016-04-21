@@ -1,11 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-define('DB_HOST', '');
-define('DB_NAME', '');
-define('DB_USER', '');
-define('DB_PASSWORD', '');
-
+if (ENVIRONMENT == 'development') {
+    define('DB_HOST', '');
+    define('DB_NAME', '');
+    define('DB_USER', '');
+    define('DB_PASSWORD', '');
+    define('SQS_VER', '');
+    define('SQS_REGION', '');
+    define('SQS_KEY', '');
+    define('SQS_SECRET', '');
+    define('SQS_NAME', '');
+} else {
+    define('DB_HOST', '');
+    define('DB_NAME', '');
+    define('DB_USER', '');
+    define('DB_PASSWORD', '');
+    define('SQS_VER', '');
+    define('SQS_REGION', '');
+    define('SQS_KEY', '');
+    define('SQS_SECRET', '');
+    define('SQS_NAME', '');
+}
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
