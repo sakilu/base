@@ -81,7 +81,7 @@ class codeDeploy
 
                     endif;
 
-
+                    $this->log('$node =' . $node);
                     // download repo
                     if (!$this->get_repo($node)) {
                         $this->log('Download of Repo Failed');
@@ -207,7 +207,11 @@ class codeDeploy
         if ($this->source == 0):
             $src = "./$this->user-$this->repo-$node/";
         elseif ($this->source == 1):
-            $src = "./$this->repo-$node/";
+            if (file_exists("./$this->repo-$node/")) {
+                $src = "./$this->repo-$node/";
+            } else {
+                $src = "./$this->repo-master/";
+            }
         endif;
 
         if (!is_dir($this->deploy)) $this->process = 'deploy';
@@ -215,8 +219,10 @@ class codeDeploy
         $this->log('Process: ' . $this->process);
         $this->log('Commit Message: ' . $message);
 
+        $this->log("real_src = $src");
         $dest = $this->deploy;
         $real_src = realpath($src);
+
 
         if (!is_dir($real_src)) {
             $this->log('Unable to read directory');
@@ -288,6 +294,7 @@ class codeDeploy
                 unlink($object->getPathname());
             }
         }
+        $this->log("delete = $path");
         rmdir($path);
     }
 
@@ -333,7 +340,10 @@ class codeDeploy
     {
         $this->log('add_file src: ' . $src . ' => ' . $dest);
         if (!is_dir(dirname($dest))) @mkdir(dirname($dest), 0755, true);
-        @copy($src, $dest);
+        @$bool = copy($src, $dest);
+        if (@!$bool) {
+            $this->log('add_file 失敗');
+        }
     }
 
     /**
@@ -345,7 +355,10 @@ class codeDeploy
     private function modify_file($src, $dest)
     {
         $this->log('modify_file src: ' . $src . ' => ' . $dest);
-        @copy($src, $dest);
+        @$bool = copy($src, $dest);
+        if (@!$bool) {
+            $this->log('modify_file 失敗');
+        }
     }
 
     /**
@@ -357,7 +370,10 @@ class codeDeploy
     {
         $this->log('remove_file file: ' . $file);
 
-        if (is_file($file)) @unlink($file);
+        if (is_file($file)) @$bool = unlink($file);
+        if (@!$bool) {
+            $this->log('remove_file 失敗');
+        }
     }
 
 }
