@@ -13,9 +13,15 @@ class Migrate extends CI_Controller
     {
         $this->load->library('migration');
 
-        if ($this->migration->current() === FALSE) {
+        if ($this->migration->latest() === FALSE) {
             show_error($this->migration->error_string());
         }
+    }
+
+    public function restart()
+    {
+        $this->reset();
+        $this->index();
     }
 
 }
