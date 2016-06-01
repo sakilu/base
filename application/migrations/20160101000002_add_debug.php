@@ -9,30 +9,22 @@ class Migration_Add_debug extends CI_Migration
 
     public function up()
     {
+        $prefix = $this->table . '_';
         $this->dbforge->add_field([
-            'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
+            $prefix . 'id' => [
+                'type' => 'bigint',
                 'unsigned' => TRUE,
+                'constraint' => 11,
                 'auto_increment' => TRUE
             ],
-            'url' => [
+            $prefix . 'msg' => [
                 'type' => 'text',
             ],
-            'datetime' => [
+            $prefix . 'created_at' => [
                 'type' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
             ],
-            'header' => [
-                'type' => 'text',
-            ],
-            'body' => [
-                'type' => 'text',
-            ],
-            'timestamp' => [
-                'type' => 'bigint',
-            ],
         ]);
-        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key($prefix . 'id', TRUE);
         $this->dbforge->create_table($this->table);
     }
 
